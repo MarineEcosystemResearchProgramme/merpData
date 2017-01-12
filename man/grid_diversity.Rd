@@ -8,8 +8,9 @@ grid_diversity(mydata, taxonomic_level, myresolution = 0.5, myzoom = 7,
   lat_centre = NULL, lon_centre = NULL)
 }
 \arguments{
-\item{mydata}{is an R data.frame. It contains two columns that must be named lat and lon, lon corresponding to each observations.
-mydata must have the right column names for the function to work. See example on how to do that.}
+\item{mydata}{is an R data.frame. It must contain at least two columns containing latitudes and
+longitudes for each observation. \code{grid_diversity} will attempt to find in mydata the columns 
+that contain that information. Column names must contain the letters "lat" and "lon".}
 
 \item{taxonomic_level}{is the taxonomic resolution for gridding. Possible choices are
 kingdom, phylum, class, order, family, genus and species}
@@ -33,5 +34,14 @@ Data portals such as OBIS typically return tables of geolocated observations upo
 When combined with packages such as taxizesoap the taxonomy of all occurring species
 can be added. From there a common task is to map the number of unique species/genus/family (or
 other taxonomic group) on a lattice.
+}
+\examples{
+library(robis)
+library(ggmap)
+mydata <- occurrence(geometry = "POLYGON ((0 0, 0 45, 45 45, 45 0, 0 0))", year = 1975)
+grid_diversity(mydata, taxonomic_level = "genus", myresolution = 2, myzoom = 3)
+head(justchecking$gridded_data)
+# plot the data
+justchecking$myplot 
 }
 

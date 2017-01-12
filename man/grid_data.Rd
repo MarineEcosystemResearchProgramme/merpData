@@ -33,6 +33,7 @@ there is no built-in function to go from raw to aggregated data.
 }
 \examples{
 library(robis)
+library(ggmap)
 obs <- occurrence("Gadus morhua", year = 2002)
 justchecking <- grid_data(lat = obs$decimalLatitude, lon = obs$decimalLongitude, myresolution = 0.5, myzoom = 4)
 # examine the data
