@@ -5,7 +5,7 @@
 \title{Function to grid geolocated observations on a map}
 \usage{
 grid_data(lat, lon, myresolution = 0.5, myzoom = 7, lat_centre = NULL,
-  lon_centre = NULL)
+  lon_centre = NULL, map = FALSE)
 }
 \arguments{
 \item{lat}{is a numerical vector of latitudes for the set of observations.}
@@ -21,6 +21,9 @@ latitude of observations.}
 
 \item{lon_centre}{is the user-defined longitude the map will be centred on. Default to mean 
 longitude of observations.}
+
+\item{map}{controls whether a map should be computed while running \code{grid_data}. It is
+set by default to FALSE.}
 }
 \value{
 \code{grid_data} returns a data frame containing the number of observations per cell.
@@ -35,7 +38,7 @@ there is no built-in function to go from raw to aggregated data.
 library(robis)
 library(ggmap)
 obs <- occurrence("Gadus morhua", year = 2002)
-justchecking <- grid_data(lat = obs$decimalLatitude, lon = obs$decimalLongitude, myresolution = 0.5, myzoom = 4)
+justchecking <- grid_data(lat = obs$decimalLatitude, lon = obs$decimalLongitude, myresolution = 0.5, myzoom = 4, map = TRUE)
 # examine the data
 head(justchecking$gridded_data)
 # plot the data
