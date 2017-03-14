@@ -2,9 +2,10 @@
 % Please edit documentation in R/match_env.R
 \name{match_env}
 \alias{match_env}
-\title{Match biotic and abiotic data in space}
+\title{Match biotic and abiotic data in space and time}
 \usage{
-match_env(env_lon, env_lat, bio_lon, bio_lat, max_dist = NA,
+match_env(env_lon, env_lat, env_time = c(year = NULL, month = NULL), bio_lon,
+  bio_lat, bio_time = c(year = NULL, month = NULL), max_dist = NA,
   env_variable = NULL)
 }
 \arguments{
@@ -12,23 +13,36 @@ match_env(env_lon, env_lat, bio_lon, bio_lat, max_dist = NA,
 
 \item{env_lat}{is a vector of latitude for the abiotic variable}
 
-\item{bio_lon}{is the longitude of the biotic variable}
+\item{env_time}{is a list containing vectors "year" and "month" 
+for the abiotic variables}
 
-\item{bio_lat}{is the latitude of the biotic variable}
+\item{bio_lon}{is the longitude of the observed biotic record}
+
+\item{bio_lat}{is the latitude of the observed biotic record}
+
+\item{bio_time}{is a list containing the year and month at which the
+biotic record was observed}
 
 \item{max_dist}{is the maximum distance (in km) beyond which
 a environmental data point is considered too far to inform conditions
 at location of biological records}
 
-\item{env_variable}{is an optional vector containing the value of the abiotic variable}
+\item{env_variable}{is an optional vector containing abiotic variable values}
 }
 \description{
-The function takes two sets of geolocated data (typically one biotic
-and one abiotic) and match their locations to combine the two.
+The function takes two sets of geolocated, temporally resolved
+data (typically one biotic and one abiotic) and match them.
+}
+\details{
 \code{match_env} returns the value of the environmental variable
-for the location in the abiotic set of coordinates that is closest to the 
-location for the biotic record. If the vector of values for 
+for the time and location in the abiotic set of coordinates that
+are closest to that of the biotic record. If the vector of values for 
 the abiotic variable is not provided, the function simply returns the
-index of the closest location in the vector of coordinates.
+index of the closest location in the vector of coordinates. Temporal
+matching is done on a "year-month" basis. If there is no temporal
+match the function returns NA. Similarly if there is no matching data within
+a threshold distance (optional), the function returns NA. Geographical
+distance is calculating using the geosphere::distm() function using
+the haversine method (i.e. assuming a spherical earth, ignoring ellipsoidal effects).
 }
 
