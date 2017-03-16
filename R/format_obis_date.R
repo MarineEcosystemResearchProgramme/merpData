@@ -18,8 +18,8 @@ format_obis_date <- function(obis_data){
   inter <- strsplit(as.character(obis_data$eventDate), split = " ") %>%
     sapply(., function(x) x[[1]]) %>%
     strsplit(., split = "-") 
-  obis_data$year <- sapply(inter, function(x) x[1])
-  obis_data$month <- sapply(inter, function(x) x[2])
-  obis_data$day <- sapply(inter, function(x) x[3])
+  obis_data$year <- as.numeric(sapply(inter, function(x) x[1]))
+  obis_data$month <- as.numeric(sapply(inter, function(x) x[2]))
+  obis_data$day <- as.numeric(sapply(inter, function(x) x[3]))
   obis_data
 }
